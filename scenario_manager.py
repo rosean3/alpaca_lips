@@ -167,14 +167,15 @@ class ScenarioManager:
         self.scenarios.append({
             'id': 8,
             'title': "O Último Dilema",
-            'description': "Você deve decidir se sacrifica sua própria vida para salvar a base de um ataque zumbi em massa.",
+            'description': "Você deve decidir se vai abandonar a base para salvá-la de um ataque zumbi em massa. Seu risco de morte é grande.",
             'character': final_character,
             'dilemma': "Sacrificar-se para salvar outros ou sobreviver para continuar protegendo?",
             'consequences': {
-                True: "Você se sacrificou. A base foi salva, mas você morreu. Seu legado vive.",
-                False: "Você sobreviveu. A base foi atacada, mas você pode reconstruí-la."
+                True: "Você sobreviveu. A base foi atacada e todos os seus amigos morreram.",
+                False: "A base está bem. Você sobreviveu, mas vai demorar 3 anos para conseguir retornar."
             }
         })
+        # TODO: implementar lógica de morte de personagens
     
     def has_more_scenarios(self):
         """Verifica se ainda há cenários para processar"""
