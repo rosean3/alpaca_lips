@@ -7,7 +7,7 @@ class Character:
         self.name = name
         self.age = age
         self.profession = profession
-        self.health_status = health_status  # "healthy", "Doente", "injured", "unknown"
+        self.health_status = health_status  # "healthy", "sick", "injured", "unknown"
         self.background = background
         self.risk_level = risk_level  # 1-10, onde 10 é muito arriscado
         self.skills = skills  # Lista de habilidades úteis
@@ -38,11 +38,21 @@ class Character:
         ]
         return random.choice(colors)
     
+    def get_health_status_translated(self):
+        """Retorna o status de saúde traduzido para português"""
+        translations = {
+            "healthy": "Saudável",
+            "sick": "Doente", 
+            "injured": "Ferido",
+            "unknown": "Desconhecido"
+        }
+        return translations.get(self.health_status, self.health_status)
+    
     def get_health_color(self):
         """Retorna a cor baseada no status de saúde"""
         if self.health_status == "healthy":
             return (100, 255, 100)  # Verde
-        elif self.health_status == "Doente":
+        elif self.health_status == "sick":
             return (255, 255, 100)  # Amarelo
         elif self.health_status == "injured":
             return (255, 150, 100)  # Laranja
@@ -69,7 +79,7 @@ class Character:
         info = f"Nome: {self.name}\n"
         info += f"Idade: {self.age} anos\n"
         info += f"Profissão: {self.profession}\n"
-        info += f"Saúde: {self.health_status}\n"
+        info += f"Saúde: {self.get_health_status_translated()}\n"
         info += f"Nível de Risco: {self.risk_level}/10\n"
         info += f"Histórico: {self.background}\n"
         info += f"Habilidades: {', '.join(self.skills)}\n"

@@ -31,7 +31,7 @@ class UIManager:
         }
         
         # Botões
-        button_width = 200
+        button_width = 230
         button_height = 60
         button_y = screen_height - 100
         
@@ -50,8 +50,8 @@ class UIManager:
         )
         
         # Painéis
-        self.character_panel = pygame.Rect(50, 50, 400, 600)
-        self.info_panel = pygame.Rect(500, 50, 650, 600)
+        self.character_panel = pygame.Rect(50, 50, 400, 500)
+        self.info_panel = pygame.Rect(500, 50, 650, 500)
     
     def render_character(self, screen, character, scenario):
         """Renderiza a tela com o personagem atual"""
@@ -92,7 +92,7 @@ class UIManager:
         pygame.draw.rect(screen, self.colors['border'], avatar_rect, 3)
         
         # Nome do personagem
-        name_text = self.fonts['title'].render(character.name, True, self.colors['text'])
+        name_text = self.fonts['subtitle'].render(character.name, True, self.colors['text'])
         name_rect = name_text.get_rect(centerx=self.character_panel.centerx, y=avatar_rect.bottom + 20)
         screen.blit(name_text, name_rect)
         
@@ -101,7 +101,7 @@ class UIManager:
         info_lines = [
             f"Idade: {character.age} anos",
             f"Profissão: {character.profession}",
-            f"Saúde: {character.health_status}",
+            f"Saúde: {character.get_health_status_translated()}",
             f"Nível de Risco: {character.risk_level}/10"
         ]
         
@@ -158,23 +158,23 @@ class UIManager:
             screen.blit(desc_text, desc_rect)
             desc_y += 26
         
-        # # Dilema
+        # Dilema (comentado por enquanto)
         # dilemma_y = desc_y + 20
         # dilemma_text = self.fonts['subtitle'].render("O Dilema:", True, self.colors['warning'])
         # dilemma_rect = dilemma_text.get_rect(x=self.info_panel.x + 20, y=dilemma_y)
         # screen.blit(dilemma_text, dilemma_rect)
         
-        # Texto do dilema (quebrado em linhas)
-        dilemma_lines = self.wrap_text(scenario['dilemma'], self.fonts['body'], self.info_panel.width - 40)
-        dilemma_y += 36
-        for line in dilemma_lines:
-            text = self.fonts['body'].render(line, True, self.colors['text'])
-            text_rect = text.get_rect(x=self.info_panel.x + 20, y=dilemma_y)
-            screen.blit(text, text_rect)
-            dilemma_y += 26
+        # Texto do dilema (quebrado em linhas) - comentado por enquanto
+        # dilemma_lines = self.wrap_text(scenario['dilemma'], self.fonts['body'], self.info_panel.width - 40)
+        # dilemma_y += 36
+        # for line in dilemma_lines:
+        #     text = self.fonts['body'].render(line, True, self.colors['text'])
+        #     text_rect = text.get_rect(x=self.info_panel.x + 20, y=dilemma_y)
+        #     screen.blit(text, text_rect)
+        #     dilemma_y += 26
         
         # Informações detalhadas do personagem
-        details_y = dilemma_y + 20
+        details_y = desc_y + 20  # Mudou de dilemma_y para desc_y
         details_title = self.fonts['subtitle'].render("Informações Detalhadas:", True, self.colors['accent'])
         details_title_rect = details_title.get_rect(x=self.info_panel.x + 20, y=details_y)
         screen.blit(details_title, details_title_rect)
@@ -183,25 +183,67 @@ class UIManager:
         # Histórico (com quebra de linha)
         history_lines = self.wrap_text(f"Histórico: {character.background}", self.fonts['body'], self.info_panel.width - 40)
         for line in history_lines:
-            history_text = self.fonts['body'].render(line, True, self.colors['text'])
-            history_rect = history_text.get_rect(x=self.info_panel.x + 20, y=details_y)
-            screen.blit(history_text, history_rect)
+            if line.startswith("Histórico:"):
+                # Renderizar "Histórico:" em roxo
+                keyword_text = self.fonts['body'].render("Histórico:", True, (150, 100, 255))
+                keyword_rect = keyword_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+                screen.blit(keyword_text, keyword_rect)
+                
+                # Renderizar o resto em branco
+                rest_text = self.fonts['body'].render(line[10:], True, self.colors['text'])
+                rest_rect = rest_text.get_rect(x=self.info_panel.x + 20 + keyword_text.get_width(), y=details_y)
+                screen.blit(rest_text, rest_rect)
+            else:
+                # Linhas que não começam com "Histórico:" (quebra de linha)
+                history_text = self.fonts['body'].render(line, True, self.colors['text'])
+                history_rect = history_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+                screen.blit(history_text, history_rect)
             details_y += 26
+        
+        # Espaçamento entre seções
+        details_y += 15
         
         # Habilidades (com quebra de linha)
         skills_lines = self.wrap_text(f"Habilidades: {', '.join(character.skills)}", self.fonts['body'], self.info_panel.width - 40)
         for line in skills_lines:
-            skills_text = self.fonts['body'].render(line, True, self.colors['text'])
-            skills_rect = skills_text.get_rect(x=self.info_panel.x + 20, y=details_y)
-            screen.blit(skills_text, skills_rect)
+            if line.startswith("Habilidades:"):
+                # Renderizar "Habilidades:" em verde
+                keyword_text = self.fonts['body'].render("Habilidades:", True, self.colors['success'])
+                keyword_rect = keyword_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+                screen.blit(keyword_text, keyword_rect)
+                
+                # Renderizar o resto em branco
+                rest_text = self.fonts['body'].render(line[12:], True, self.colors['text'])
+                rest_rect = rest_text.get_rect(x=self.info_panel.x + 20 + keyword_text.get_width(), y=details_y)
+                screen.blit(rest_text, rest_rect)
+            else:
+                # Linhas que não começam com "Habilidades:" (quebra de linha)
+                skills_text = self.fonts['body'].render(line, True, self.colors['text'])
+                skills_rect = skills_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+                screen.blit(skills_text, skills_rect)
             details_y += 26
+        
+        # Espaçamento entre seções
+        details_y += 15
         
         # Necessidades (com quebra de linha)
         needs_lines = self.wrap_text(f"Necessidades: {', '.join(character.needs)}", self.fonts['body'], self.info_panel.width - 40)
         for line in needs_lines:
-            needs_text = self.fonts['body'].render(line, True, self.colors['text'])
-            needs_rect = needs_text.get_rect(x=self.info_panel.x + 20, y=details_y)
-            screen.blit(needs_text, needs_rect)
+            if line.startswith("Necessidades:"):
+                # Renderizar "Necessidades:" em amarelo
+                keyword_text = self.fonts['body'].render("Necessidades:", True, self.colors['warning'])
+                keyword_rect = keyword_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+                screen.blit(keyword_text, keyword_rect)
+                
+                # Renderizar o resto em branco
+                rest_text = self.fonts['body'].render(line[13:], True, self.colors['text'])
+                rest_rect = rest_text.get_rect(x=self.info_panel.x + 20 + keyword_text.get_width(), y=details_y)
+                screen.blit(rest_text, rest_rect)
+            else:
+                # Linhas que não começam com "Necessidades:" (quebra de linha)
+                needs_text = self.fonts['body'].render(line, True, self.colors['text'])
+                needs_rect = needs_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+                screen.blit(needs_text, needs_rect)
             details_y += 26
     
     def render_decision_buttons(self, screen):

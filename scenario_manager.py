@@ -6,39 +6,37 @@ class ScenarioManager:
         self.scenarios = []
         self.current_scenario_index = 0
         self.create_scenarios()
-        random.shuffle(self.scenarios)
+        # Manter o primeiro e o último fixos, embaralhar o meio
+        first = self.scenarios[0:1]  # A Médica Especialista
+        middle = self.scenarios[1:-1]  # Demais
+        last = self.scenarios[-1:]  # O Último Dilema
+        random.shuffle(middle)
+        self.scenarios = first + middle + last
     
     def create_scenarios(self):
         """Cria todos os cenários do jogo"""
         
-        # Cenário 1: Médico vs Criminoso
+        # Cenário 1: Médico especialista
         doctor = Character(
-            "Dr. Maria Silva", 45, "Médica", "healthy",
+            "Dra. Maria Silva", 45, "Médica", "Saudável",
             "Especialista em doenças infecciosas. Trabalhou no CDC antes do apocalipse.",
             2, ["Medicina", "Primeiros Socorros", "Pesquisa Médica"], ["Equipamentos médicos"],
             image_path="assets/characters/dr_maria_silva.png"
         )
         
-        criminal = Character(
-            "João 'Faca' Santos", 32, "Ex-presidiário", "injured",
-            "Condenado por roubo a mão armada. Diz que mudou, mas tem tatuagens de gangue.",
-            8, ["Combate", "Construção", "Mecânica"], ["Remédios", "Comida"],
-            image_path="assets/characters/joao_faca_santos.png"
-        )
-        
         self.scenarios.append({
             'id': 1,
-            'title': "O Dilema do Médico",
-            'description': "Um médico especialista em doenças infecciosas chega à base. Ele pode salvar vidas, mas também pode ser um risco se estiver infectado.",
+            'title': "A Médica Especialista",
+            'description': "Uma médica especialista em doenças infecciosas chega à base. Ela pode salvar muitas vidas com seu conhecimento médico.",
             'character': doctor,
-            'dilemma': "Deixar entrar um médico que pode salvar muitos, mas que pode estar infectado?",
+            'dilemma': "Deixar entrar uma médica que pode salvar muitos, mas que pode estar infectada?",
             'consequences': {
-                True: "O médico salvou 5 pessoas com seu conhecimento. A base agora tem um especialista médico.",
-                False: "O médico morreu do lado de fora. 3 pessoas morreram por falta de cuidados médicos."
+                True: "A médica salvou 5 pessoas com seu conhecimento. A base agora tem um especialista médico.",
+                False: "A médica morreu do lado de fora. 3 pessoas morreram por falta de cuidados médicos."
             }
         })
         
-        # Cenário 2: Família vs Estrangeiro
+        # Cenário 2: Família com crianças
         family_member = Character(
             "Ana Costa", 28, "Mãe", "Doente",
             "Mãe de duas crianças pequenas. Está doente mas diz que é apenas gripe.",
@@ -46,80 +44,59 @@ class ScenarioManager:
             image_path="assets/characters/ana_costa.png"
         )
         
-        engineer = Character(
-            "Carlos Kim", 35, "Engenheiro", "healthy",
-            "Engenheiro nuclear. Pode ajudar a manter os geradores funcionando.",
-            3, ["Engenharia", "Eletrônica", "Manutenção"], ["Ferramentas"],
-            image_path="assets/characters/carlos_kim.png"
-        )
-        
         self.scenarios.append({
             'id': 2,
-            'title': "Família vs Necessidade",
-            'description': "Uma mãe doente com crianças pequenas vs um engenheiro que pode manter a base funcionando.",
+            'title': "A Família em Necessidade",
+            'description': "Uma mãe doente com duas crianças pequenas chega à base. Elas precisam de abrigo e cuidados.",
             'character': family_member,
-            'dilemma': "Priorizar uma família em necessidade ou alguém essencial para a sobrevivência da base?",
+            'dilemma': "Aceitar uma família em necessidade ou manter a segurança da base?",
             'consequences': {
                 True: "A família foi aceita. As crianças trouxeram alegria à base, mas a mãe espalhou uma doença leve.",
                 False: "A família foi rejeitada. As crianças morreram de fome. A base perdeu humanidade."
             }
         })
         
-        # Cenário 3: Soldado vs Civil
+        # Cenário 3: Soldado ferido
         soldier = Character(
-            "Sgt. Roberto Alves", 38, "Soldado", "injured",
+            "Sgt. Roberto Alves", 38, "Soldado", "Ferido",
             "Sargento do exército. Ferido em combate contra zumbis. Tem experiência militar.",
             7, ["Combate", "Estratégia", "Treinamento"], ["Remédios", "Armas"],
             image_path="assets/characters/roberto_alves.png"
         )
         
-        teacher = Character(
-            "Prof. Lúcia Mendes", 42, "Professora", "healthy",
-            "Professora de história. Pode educar as crianças e manter a cultura viva.",
-            2, ["Educação", "Psicologia", "Organização"], ["Livros", "Material escolar"],
-            image_path="assets/characters/lucia_mendes.png"
-        )
-        
         self.scenarios.append({
             'id': 3,
-            'title': "Força vs Sabedoria",
-            'description': "Um soldado ferido que pode proteger a base vs uma professora que pode educar as crianças.",
+            'title': "O Soldado Ferido",
+            'description': "Um soldado ferido chega à base. Ele pode proteger a base, mas seu ferimento pode piorar.",
             'character': soldier,
-            'dilemma': "Escolher proteção militar ou educação para o futuro?",
+            'dilemma': "Aceitar um soldado ferido que pode proteger a base?",
             'consequences': {
                 True: "O soldado protegeu a base de um ataque zumbi. Mas seu ferimento piorou.",
                 False: "A base ficou mais vulnerável. Uma criança foi mordida por um zumbi."
             }
         })
         
-        # Cenário 4: Criança vs Adulto
+        # Cenário 4: Criança órfã
         child = Character(
-            "Pedro Santos", 12, "Estudante", "healthy",
+            "Pedro Santos", 12, "Estudante", "Saudável",
             "Criança órfã. Perdeu os pais para zumbis. Muito inteligente para a idade.",
             4, ["Matemática", "Observação", "Agilidade"], ["Comida", "Atenção"],
             image_path="assets/characters/pedro_santos.png"
         )
         
-        farmer = Character(
-            "Seu José", 65, "Fazendeiro", "healthy",
-            "Fazendeiro experiente. Pode ensinar agricultura e garantir comida para todos.",
-            2, ["Agricultura", "Criação de animais", "Conservação"], ["Sementes", "Ferramentas"],
-            image_path="assets/characters/seu_jose.png"
-        )
-        
         self.scenarios.append({
             'id': 4,
-            'title': "Presente vs Futuro",
-            'description': "Uma criança órfã vs um fazendeiro que pode garantir comida para todos.",
+            'title': "A Criança Órfã",
+            'description': "Uma criança órfã de 12 anos chega à base sozinha. Ela é muito inteligente mas precisa de cuidados.",
             'character': child,
-            'dilemma': "Investir no futuro (criança) ou no presente (comida)?",
+            'dilemma': "Aceitar uma criança órfã que pode ser o futuro da base?",
             'consequences': {
                 True: "A criança cresceu e se tornou um líder importante. Mas consumiu recursos preciosos.",
                 False: "A criança morreu. A base perdeu um potencial líder futuro."
             }
         })
         
-        # Cenário 5: Infectado vs Saudável
+        # Cenário 5: Enfermeira possivelmente infectada
         infected = Character(
             "Marina Costa", 25, "Enfermeira", "Doente",
             "Enfermeira que foi mordida por um zumbi. Diz que a mordida foi superficial.",
@@ -127,17 +104,10 @@ class ScenarioManager:
             image_path="assets/characters/marina_costa.png"
         )
         
-        scientist = Character(
-            "Dr. Paulo Santos", 50, "Cientista", "healthy",
-            "Pesquisador que pode desenvolver uma cura para o vírus zumbi.",
-            1, ["Pesquisa", "Química", "Biologia"], ["Laboratório", "Equipamentos"],
-            image_path="assets/characters/paulo_santos.png"
-        )
-        
         self.scenarios.append({
             'id': 5,
-            'title': "A Última Esperança",
-            'description': "Uma enfermeira possivelmente infectada vs um cientista que pode salvar a humanidade.",
+            'title': "A Enfermeira Suspeita",
+            'description': "Uma enfermeira chega à base com uma mordida de zumbi. Ela diz que foi superficial.",
             'character': infected,
             'dilemma': "Arriscar a base por uma possível cura ou manter a segurança?",
             'consequences': {
@@ -146,34 +116,27 @@ class ScenarioManager:
             }
         })
         
-        # Cenário 6: Líder vs Seguidor
+        # Cenário 6: Líder militar
         leader = Character(
-            "Capitão Silva", 45, "Líder Militar", "healthy",
+            "Capitão Silva", 45, "Líder Militar", "Saudável",
             "Ex-capitão do exército. Quer assumir o comando da base.",
             6, ["Liderança", "Estratégia", "Combate"], ["Autoridade", "Respeito"],
             image_path="assets/characters/capitao_silva.png"
         )
         
-        worker = Character(
-            "Maria das Dores", 35, "Trabalhadora", "healthy",
-            "Trabalhadora braçal. Pode ajudar na construção e manutenção.",
-            2, ["Construção", "Limpeza", "Cozinha"], ["Ferramentas", "Comida"],
-            image_path="assets/characters/maria_das_dores.png"
-        )
-        
         self.scenarios.append({
             'id': 6,
-            'title': "Poder vs Trabalho",
-            'description': "Um líder militar que quer assumir o comando vs uma trabalhadora que pode ajudar na base.",
+            'title': "O Líder Militar",
+            'description': "Um capitão do exército chega à base. Ele quer assumir o comando e reorganizar tudo.",
             'character': leader,
-            'dilemma': "Aceitar um novo líder ou manter a ordem atual?",
+            'dilemma': "Aceitar um novo líder que pode reorganizar a base?",
             'consequences': {
                 True: "O capitão assumiu o comando. A base ficou mais organizada, mas menos democrática.",
                 False: "O capitão foi rejeitado. A base manteve sua autonomia, mas ficou menos eficiente."
             }
         })
         
-        # Cenário 7: Idoso vs Jovem
+        # Cenário 7: Idosa com sabedoria
         elderly = Character(
             "Dona Rosa", 78, "Aposentada", "Doente",
             "Idosa com problemas cardíacos. Precisa de cuidados especiais.",
@@ -181,19 +144,12 @@ class ScenarioManager:
             image_path="assets/characters/dona_rosa.png"
         )
         
-        young_worker = Character(
-            "Lucas Silva", 22, "Técnico", "healthy",
-            "Jovem técnico em informática. Pode consertar equipamentos eletrônicos.",
-            3, ["Informática", "Eletrônica", "Manutenção"], ["Ferramentas", "Peças"],
-            image_path="assets/characters/lucas_silva.png"
-        )
-        
         self.scenarios.append({
             'id': 7,
-            'title': "Sabedoria vs Juventude",
-            'description': "Uma idosa com sabedoria vs um jovem com habilidades técnicas.",
+            'title': "A Idosa Sábia",
+            'description': "Uma idosa de 78 anos chega à base. Ela tem muita sabedoria mas precisa de cuidados especiais.",
             'character': elderly,
-            'dilemma': "Valorizar experiência ou habilidades práticas?",
+            'dilemma': "Aceitar uma idosa que pode compartilhar sua sabedoria?",
             'consequences': {
                 True: "A idosa compartilhou sua sabedoria. Mas consumiu recursos médicos preciosos.",
                 False: "A idosa morreu. A base perdeu uma fonte de sabedoria e experiência."
@@ -202,7 +158,7 @@ class ScenarioManager:
         
         # Cenário 8: Final - O Sacrifício
         final_character = Character(
-            "Você Mesmo", 30, "Segurança", "healthy",
+            "Você Mesmo", 30, "Segurança", "Saudável",
             "Você é o segurança da base. Sua decisão final determinará o futuro.",
             5, ["Segurança", "Decisões", "Responsabilidade"], ["Coragem", "Sabedoria"],
             image_path="assets/characters/voce_mesmo.png"
@@ -235,4 +191,9 @@ class ScenarioManager:
     def reset_scenarios(self):
         """Reseta os cenários para o início"""
         self.current_scenario_index = 0
-        random.shuffle(self.scenarios) 
+        # Manter o primeiro e o último fixos, embaralhar o meio
+        first = self.scenarios[0:1]  # A Médica Especialista
+        middle = self.scenarios[1:-1]  # Demais
+        last = self.scenarios[-1:]  # O Último Dilema
+        random.shuffle(middle)
+        self.scenarios = first + middle + last 

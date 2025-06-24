@@ -9,8 +9,8 @@ from scenario_manager import ScenarioManager
 class ZombieApocalypseGame:
     def __init__(self):
         pygame.init()
-        self.screen_width = 1200
-        self.screen_height = 800
+        self.screen_width = 1300
+        self.screen_height = 750
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         pygame.display.set_caption("Alpaca Lips - Base Security")
         
