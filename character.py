@@ -1,8 +1,9 @@
 import pygame
 import random
+import os
 
 class Character:
-    def __init__(self, name, age, profession, health_status, background, risk_level, skills, needs):
+    def __init__(self, name, age, profession, health_status, background, risk_level, skills, needs, image_path=None):
         self.name = name
         self.age = age
         self.profession = profession
@@ -13,8 +14,15 @@ class Character:
         self.needs = needs  # Lista de necessidades (comida, remédios, etc.)
         
         # Atributos visuais
-        self.avatar_color = self.generate_avatar_color()
         self.avatar_size = 150
+
+        self.image_path = image_path
+        self.avatar_image = None
+        if image_path and os.path.exists(image_path):
+            self.avatar_image = pygame.image.load(image_path)
+            self.avatar_image = pygame.transform.scale(self.avatar_image, (self.avatar_size, self.avatar_size))
+        else:
+            self.avatar_color = self.generate_avatar_color()
         
     def generate_avatar_color(self):
         """Gera uma cor única para o avatar do personagem"""

@@ -15,13 +15,15 @@ class ScenarioManager:
         doctor = Character(
             "Dr. Maria Silva", 45, "Médica", "healthy",
             "Especialista em doenças infecciosas. Trabalhou no CDC antes do apocalipse.",
-            2, ["Medicina", "Primeiros Socorros", "Pesquisa Médica"], ["Equipamentos médicos"]
+            2, ["Medicina", "Primeiros Socorros", "Pesquisa Médica"], ["Equipamentos médicos"],
+            image_path="assets/characters/dr_maria_silva.png"
         )
         
         criminal = Character(
             "João 'Faca' Santos", 32, "Ex-presidiário", "injured",
             "Condenado por roubo a mão armada. Diz que mudou, mas tem tatuagens de gangue.",
-            8, ["Combate", "Construção", "Mecânica"], ["Remédios", "Comida"]
+            8, ["Combate", "Construção", "Mecânica"], ["Remédios", "Comida"],
+            image_path="assets/characters/joao_faca_santos.png"
         )
         
         self.scenarios.append({
@@ -40,13 +42,15 @@ class ScenarioManager:
         family_member = Character(
             "Ana Costa", 28, "Mãe", "Doente",
             "Mãe de duas crianças pequenas. Está doente mas diz que é apenas gripe.",
-            6, ["Culinária", "Costura", "Cuidados infantis"], ["Remédios", "Comida para crianças"]
+            6, ["Culinária", "Costura", "Cuidados infantis"], ["Remédios", "Comida para crianças"],
+            image_path="assets/characters/ana_costa.png"
         )
         
         engineer = Character(
             "Carlos Kim", 35, "Engenheiro", "healthy",
             "Engenheiro nuclear. Pode ajudar a manter os geradores funcionando.",
-            3, ["Engenharia", "Eletrônica", "Manutenção"], ["Ferramentas"]
+            3, ["Engenharia", "Eletrônica", "Manutenção"], ["Ferramentas"],
+            image_path="assets/characters/carlos_kim.png"
         )
         
         self.scenarios.append({
@@ -65,13 +69,15 @@ class ScenarioManager:
         soldier = Character(
             "Sgt. Roberto Alves", 38, "Soldado", "injured",
             "Sargento do exército. Ferido em combate contra zumbis. Tem experiência militar.",
-            7, ["Combate", "Estratégia", "Treinamento"], ["Remédios", "Armas"]
+            7, ["Combate", "Estratégia", "Treinamento"], ["Remédios", "Armas"],
+            image_path="assets/characters/roberto_alves.png"
         )
         
         teacher = Character(
             "Prof. Lúcia Mendes", 42, "Professora", "healthy",
             "Professora de história. Pode educar as crianças e manter a cultura viva.",
-            2, ["Educação", "Psicologia", "Organização"], ["Livros", "Material escolar"]
+            2, ["Educação", "Psicologia", "Organização"], ["Livros", "Material escolar"],
+            image_path="assets/characters/lucia_mendes.png"
         )
         
         self.scenarios.append({
@@ -90,13 +96,15 @@ class ScenarioManager:
         child = Character(
             "Pedro Santos", 12, "Estudante", "healthy",
             "Criança órfã. Perdeu os pais para zumbis. Muito inteligente para a idade.",
-            4, ["Matemática", "Observação", "Agilidade"], ["Comida", "Atenção"]
+            4, ["Matemática", "Observação", "Agilidade"], ["Comida", "Atenção"],
+            image_path="assets/characters/pedro_santos.png"
         )
         
         farmer = Character(
             "Seu José", 65, "Fazendeiro", "healthy",
             "Fazendeiro experiente. Pode ensinar agricultura e garantir comida para todos.",
-            2, ["Agricultura", "Criação de animais", "Conservação"], ["Sementes", "Ferramentas"]
+            2, ["Agricultura", "Criação de animais", "Conservação"], ["Sementes", "Ferramentas"],
+            image_path="assets/characters/seu_jose.png"
         )
         
         self.scenarios.append({
@@ -115,13 +123,15 @@ class ScenarioManager:
         infected = Character(
             "Marina Costa", 25, "Enfermeira", "Doente",
             "Enfermeira que foi mordida por um zumbi. Diz que a mordida foi superficial.",
-            9, ["Enfermagem", "Primeiros Socorros", "Cuidados"], ["Remédios", "Observação médica"]
+            9, ["Enfermagem", "Primeiros Socorros", "Cuidados"], ["Remédios", "Observação médica"],
+            image_path="assets/characters/marina_costa.png"
         )
         
         scientist = Character(
             "Dr. Paulo Santos", 50, "Cientista", "healthy",
             "Pesquisador que pode desenvolver uma cura para o vírus zumbi.",
-            1, ["Pesquisa", "Química", "Biologia"], ["Laboratório", "Equipamentos"]
+            1, ["Pesquisa", "Química", "Biologia"], ["Laboratório", "Equipamentos"],
+            image_path="assets/characters/paulo_santos.png"
         )
         
         self.scenarios.append({
@@ -140,13 +150,15 @@ class ScenarioManager:
         leader = Character(
             "Capitão Silva", 45, "Líder Militar", "healthy",
             "Ex-capitão do exército. Quer assumir o comando da base.",
-            6, ["Liderança", "Estratégia", "Combate"], ["Autoridade", "Respeito"]
+            6, ["Liderança", "Estratégia", "Combate"], ["Autoridade", "Respeito"],
+            image_path="assets/characters/capitao_silva.png"
         )
         
         worker = Character(
             "Maria das Dores", 35, "Trabalhadora", "healthy",
             "Trabalhadora braçal. Pode ajudar na construção e manutenção.",
-            2, ["Construção", "Limpeza", "Cozinha"], ["Ferramentas", "Comida"]
+            2, ["Construção", "Limpeza", "Cozinha"], ["Ferramentas", "Comida"],
+            image_path="assets/characters/maria_das_dores.png"
         )
         
         self.scenarios.append({
@@ -165,13 +177,15 @@ class ScenarioManager:
         elderly = Character(
             "Dona Rosa", 78, "Aposentada", "Doente",
             "Idosa com problemas cardíacos. Precisa de cuidados especiais.",
-            5, ["História", "Sabedoria", "Costura"], ["Remédios", "Cuidados especiais"]
+            5, ["História", "Sabedoria", "Costura"], ["Remédios", "Cuidados especiais"],
+            image_path="assets/characters/dona_rosa.png"
         )
         
         young_worker = Character(
             "Lucas Silva", 22, "Técnico", "healthy",
             "Jovem técnico em informática. Pode consertar equipamentos eletrônicos.",
-            3, ["Informática", "Eletrônica", "Manutenção"], ["Ferramentas", "Peças"]
+            3, ["Informática", "Eletrônica", "Manutenção"], ["Ferramentas", "Peças"],
+            image_path="assets/characters/lucas_silva.png"
         )
         
         self.scenarios.append({
@@ -190,7 +204,8 @@ class ScenarioManager:
         final_character = Character(
             "Você Mesmo", 30, "Segurança", "healthy",
             "Você é o segurança da base. Sua decisão final determinará o futuro.",
-            5, ["Segurança", "Decisões", "Responsabilidade"], ["Coragem", "Sabedoria"]
+            5, ["Segurança", "Decisões", "Responsabilidade"], ["Coragem", "Sabedoria"],
+            image_path="assets/characters/voce_mesmo.png"
         )
         
         self.scenarios.append({

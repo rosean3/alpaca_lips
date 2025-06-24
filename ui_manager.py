@@ -1,4 +1,5 @@
 import pygame
+import os
 
 class UIManager:
     def __init__(self, screen_width, screen_height):
@@ -20,12 +21,13 @@ class UIManager:
         
         # Fontes
         pygame.font.init()
+        font_path = os.path.join("assets", "fonts", "PressStart2P-Regular.ttf")
         self.fonts = {
-            'title': pygame.font.Font(None, 48),
-            'subtitle': pygame.font.Font(None, 36),
-            'body': pygame.font.Font(None, 24),
-            'small': pygame.font.Font(None, 18),
-            'button': pygame.font.Font(None, 28)
+            'title': pygame.font.Font(font_path, 32),
+            'subtitle': pygame.font.Font(font_path, 20),
+            'body': pygame.font.Font(font_path, 14),
+            'small': pygame.font.Font(font_path, 10),
+            'button': pygame.font.Font(font_path, 16)
         }
         
         # Botões
@@ -82,8 +84,11 @@ class UIManager:
             character.avatar_size
         )
         
-        # Desenhar avatar
-        pygame.draw.rect(screen, character.avatar_color, avatar_rect)
+        # Desenhar avatar (imagem ou cor)
+        if hasattr(character, 'avatar_image') and character.avatar_image:
+            screen.blit(character.avatar_image, avatar_rect)
+        else:
+            pygame.draw.rect(screen, character.avatar_color, avatar_rect)
         pygame.draw.rect(screen, self.colors['border'], avatar_rect, 3)
         
         # Nome do personagem
@@ -153,11 +158,11 @@ class UIManager:
             screen.blit(desc_text, desc_rect)
             desc_y += 26
         
-        # Dilema
-        dilemma_y = desc_y + 20
-        dilemma_text = self.fonts['subtitle'].render("O Dilema:", True, self.colors['warning'])
-        dilemma_rect = dilemma_text.get_rect(x=self.info_panel.x + 20, y=dilemma_y)
-        screen.blit(dilemma_text, dilemma_rect)
+        # # Dilema
+        # dilemma_y = desc_y + 20
+        # dilemma_text = self.fonts['subtitle'].render("O Dilema:", True, self.colors['warning'])
+        # dilemma_rect = dilemma_text.get_rect(x=self.info_panel.x + 20, y=dilemma_y)
+        # screen.blit(dilemma_text, dilemma_rect)
         
         # Texto do dilema (quebrado em linhas)
         dilemma_lines = self.wrap_text(scenario['dilemma'], self.fonts['body'], self.info_panel.width - 40)
