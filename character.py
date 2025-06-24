@@ -6,7 +6,7 @@ class Character:
         self.name = name
         self.age = age
         self.profession = profession
-        self.health_status = health_status  # "healthy", "sick", "injured", "unknown"
+        self.health_status = health_status  # "healthy", "Doente", "injured", "unknown"
         self.background = background
         self.risk_level = risk_level  # 1-10, onde 10 é muito arriscado
         self.skills = skills  # Lista de habilidades úteis
@@ -34,7 +34,7 @@ class Character:
         """Retorna a cor baseada no status de saúde"""
         if self.health_status == "healthy":
             return (100, 255, 100)  # Verde
-        elif self.health_status == "sick":
+        elif self.health_status == "Doente":
             return (255, 255, 100)  # Amarelo
         elif self.health_status == "injured":
             return (255, 150, 100)  # Laranja

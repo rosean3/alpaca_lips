@@ -38,7 +38,7 @@ class ScenarioManager:
         
         # Cenário 2: Família vs Estrangeiro
         family_member = Character(
-            "Ana Costa", 28, "Mãe", "sick",
+            "Ana Costa", 28, "Mãe", "Doente",
             "Mãe de duas crianças pequenas. Está doente mas diz que é apenas gripe.",
             6, ["Culinária", "Costura", "Cuidados infantis"], ["Remédios", "Comida para crianças"]
         )
@@ -113,7 +113,7 @@ class ScenarioManager:
         
         # Cenário 5: Infectado vs Saudável
         infected = Character(
-            "Marina Costa", 25, "Enfermeira", "sick",
+            "Marina Costa", 25, "Enfermeira", "Doente",
             "Enfermeira que foi mordida por um zumbi. Diz que a mordida foi superficial.",
             9, ["Enfermagem", "Primeiros Socorros", "Cuidados"], ["Remédios", "Observação médica"]
         )
@@ -163,7 +163,7 @@ class ScenarioManager:
         
         # Cenário 7: Idoso vs Jovem
         elderly = Character(
-            "Dona Rosa", 78, "Aposentada", "sick",
+            "Dona Rosa", 78, "Aposentada", "Doente",
             "Idosa com problemas cardíacos. Precisa de cuidados especiais.",
             5, ["História", "Sabedoria", "Costura"], ["Remédios", "Cuidados especiais"]
         )

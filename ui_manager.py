@@ -135,54 +135,69 @@ class UIManager:
         pygame.draw.rect(screen, self.colors['panel'], self.info_panel)
         pygame.draw.rect(screen, self.colors['border'], self.info_panel, 3)
         
-        # Título do cenário
-        title_text = self.fonts['subtitle'].render(scenario['title'], True, self.colors['accent'])
-        title_rect = title_text.get_rect(x=self.info_panel.x + 20, y=self.info_panel.y + 20)
-        screen.blit(title_text, title_rect)
+        # Título do cenário (com quebra de linha)
+        title_lines = self.wrap_text(scenario['title'], self.fonts['subtitle'], self.info_panel.width - 40)
+        title_y = self.info_panel.y + 20
+        for line in title_lines:
+            title_text = self.fonts['subtitle'].render(line, True, self.colors['accent'])
+            title_rect = title_text.get_rect(x=self.info_panel.x + 20, y=title_y)
+            screen.blit(title_text, title_rect)
+            title_y += 36
         
-        # Descrição
-        desc_text = self.fonts['body'].render(scenario['description'], True, self.colors['text'])
-        desc_rect = desc_text.get_rect(x=self.info_panel.x + 20, y=title_rect.bottom + 20)
-        screen.blit(desc_text, desc_rect)
+        # Descrição (com quebra de linha)
+        desc_lines = self.wrap_text(scenario['description'], self.fonts['body'], self.info_panel.width - 40)
+        desc_y = title_y + 10
+        for line in desc_lines:
+            desc_text = self.fonts['body'].render(line, True, self.colors['text'])
+            desc_rect = desc_text.get_rect(x=self.info_panel.x + 20, y=desc_y)
+            screen.blit(desc_text, desc_rect)
+            desc_y += 26
         
         # Dilema
-        dilemma_y = desc_rect.bottom + 40
+        dilemma_y = desc_y + 20
         dilemma_text = self.fonts['subtitle'].render("O Dilema:", True, self.colors['warning'])
         dilemma_rect = dilemma_text.get_rect(x=self.info_panel.x + 20, y=dilemma_y)
         screen.blit(dilemma_text, dilemma_rect)
         
         # Texto do dilema (quebrado em linhas)
         dilemma_lines = self.wrap_text(scenario['dilemma'], self.fonts['body'], self.info_panel.width - 40)
-        dilemma_y += 40
+        dilemma_y += 36
         for line in dilemma_lines:
             text = self.fonts['body'].render(line, True, self.colors['text'])
             text_rect = text.get_rect(x=self.info_panel.x + 20, y=dilemma_y)
             screen.blit(text, text_rect)
-            dilemma_y += 30
+            dilemma_y += 26
         
         # Informações detalhadas do personagem
-        details_y = dilemma_y + 40
+        details_y = dilemma_y + 20
         details_title = self.fonts['subtitle'].render("Informações Detalhadas:", True, self.colors['accent'])
         details_title_rect = details_title.get_rect(x=self.info_panel.x + 20, y=details_y)
         screen.blit(details_title, details_title_rect)
+        details_y += 36
         
-        # Histórico
-        details_y += 40
-        history_text = self.fonts['body'].render(f"Histórico: {character.background}", True, self.colors['text'])
-        history_rect = history_text.get_rect(x=self.info_panel.x + 20, y=details_y)
-        screen.blit(history_text, history_rect)
+        # Histórico (com quebra de linha)
+        history_lines = self.wrap_text(f"Histórico: {character.background}", self.fonts['body'], self.info_panel.width - 40)
+        for line in history_lines:
+            history_text = self.fonts['body'].render(line, True, self.colors['text'])
+            history_rect = history_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+            screen.blit(history_text, history_rect)
+            details_y += 26
         
-        # Habilidades
-        details_y += 40
-        skills_text = self.fonts['body'].render(f"Habilidades: {', '.join(character.skills)}", True, self.colors['text'])
-        skills_rect = skills_text.get_rect(x=self.info_panel.x + 20, y=details_y)
-        screen.blit(skills_text, skills_rect)
+        # Habilidades (com quebra de linha)
+        skills_lines = self.wrap_text(f"Habilidades: {', '.join(character.skills)}", self.fonts['body'], self.info_panel.width - 40)
+        for line in skills_lines:
+            skills_text = self.fonts['body'].render(line, True, self.colors['text'])
+            skills_rect = skills_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+            screen.blit(skills_text, skills_rect)
+            details_y += 26
         
-        # Necessidades
-        details_y += 40
-        needs_text = self.fonts['body'].render(f"Necessidades: {', '.join(character.needs)}", True, self.colors['text'])
-        needs_rect = needs_text.get_rect(x=self.info_panel.x + 20, y=details_y)
-        screen.blit(needs_text, needs_rect)
+        # Necessidades (com quebra de linha)
+        needs_lines = self.wrap_text(f"Necessidades: {', '.join(character.needs)}", self.fonts['body'], self.info_panel.width - 40)
+        for line in needs_lines:
+            needs_text = self.fonts['body'].render(line, True, self.colors['text'])
+            needs_rect = needs_text.get_rect(x=self.info_panel.x + 20, y=details_y)
+            screen.blit(needs_text, needs_rect)
+            details_y += 26
     
     def render_decision_buttons(self, screen):
         """Renderiza os botões de decisão"""
